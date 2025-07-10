@@ -24,6 +24,7 @@ body {
   padding: 20px;
 }
 
+/* Header */
 .header {
   text-align: center;
   margin-bottom: 20px;
@@ -35,17 +36,17 @@ body {
   font-weight: bold;
 }
 
-/* Task Input */
+/* Task Input Section */
 .task-input {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
   flex-wrap: wrap;
   gap: 10px;
+  margin-bottom: 20px;
+  justify-content: space-between;
 }
 
 .input {
-  flex: 1;
+  flex: 1 1 60%;
   padding: 10px;
   border: 2px solid #ddd;
   border-radius: 25px;
@@ -59,10 +60,11 @@ body {
 }
 
 .btn {
+  flex: 1 1 30%;
   background-color: #f07532;
   color: white;
   font-size: 1rem;
-  padding: 10px 20px;
+  padding: 10px;
   border: none;
   border-radius: 25px;
   cursor: pointer;
@@ -81,37 +83,38 @@ ul {
 }
 
 ul li {
-  font-size: 17px;
-  padding: 12px 8px 12px 50px;
+  font-size: 16px;
+  padding: 10px 8px 10px 40px;
   position: relative;
   cursor: pointer;
   user-select: none;
   margin-bottom: 10px;
   background-color: #f9f9f9;
   border-radius: 8px;
-  transition: background-color 0.3s ease;
+  line-height: 1.4;
 }
 
-/* Unchecked icon */
+/* Custom checkbox: unchecked */
 ul li::before {
   content: '';
   position: absolute;
-  height: 20px;
-  width: 20px;
-  top: 15px;
-  left: 15px;
+  height: 16px;
+  width: 16px;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
   background-color: #aaa;
   -webkit-mask-image: url('data:image/svg+xml;utf8,<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>');
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
-  -webkit-mask-size: cover;
+  -webkit-mask-size: contain;
   mask-image: url('data:image/svg+xml;utf8,<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>');
   mask-repeat: no-repeat;
   mask-position: center;
-  mask-size: cover;
+  mask-size: contain;
 }
 
-/* Checked icon */
+/* Custom checkbox: checked */
 ul li.checked {
   color: red;
   text-decoration: line-through;
@@ -123,11 +126,11 @@ ul li.checked::before {
   mask-image: url('data:image/svg+xml;utf8,<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.285,6.709c-0.391-0.391-1.023-0.391-1.414,0L10,15.585l-4.879-4.88c-0.391-0.391-1.023-0.391-1.414,0 c-0.391,0.391-0.391,1.023,0,1.414l5.586,5.586c0.391,0.391,1.023,0.391,1.414,0L20.285,8.123 C20.676,7.732,20.676,7.1,20.285,6.709z"/></svg>');
 }
 
-/* Close button */
+/* Delete Button (X) */
 ul li span {
   position: absolute;
   right: 15px;
-  top: 12px;
+  top: 8px;
   width: 30px;
   height: 30px;
   font-size: 20px;
@@ -150,10 +153,22 @@ ul li span:hover {
 
   .task-input {
     flex-direction: column;
+    align-items: stretch;
   }
 
   .input,
   .btn {
     width: 100%;
+  }
+
+  ul li::before {
+    height: 14px;
+    width: 14px;
+    left: 10px;
+  }
+
+  ul li span {
+    top: 5px;
+    right: 10px;
   }
 }
