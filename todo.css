@@ -1,4 +1,4 @@
-/* Reset & Base Styles */
+/* RESET & BASE */
 * {
   margin: 0;
   padding: 0;
@@ -6,168 +6,167 @@
 }
 
 body {
-  font-family: 'Arial', sans-serif;
-  background: linear-gradient(45deg, black, rgb(232, 125, 232), rgba(0, 0, 0, 0.771));
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #1b005c, #6e00a6);
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 10px;
+  padding: 20px;
   color: #333;
 }
 
+/* MAIN CONTAINER */
 .main {
-  background-color: #ffffffdb;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  padding: 30px;
   width: 100%;
-  max-width: 600px;
-  padding: 20px;
+  max-width: 500px;
 }
 
-/* Header */
+/* HEADER */
 .header {
   text-align: center;
   margin-bottom: 20px;
 }
 
 .lab {
-  font-size: 1.8rem;
-  font-weight: bold;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1a1a1a;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  color: #333;
-  text-align: center;
 }
 
 .lab img {
-  width: 30px;
-  height: auto;
-  max-width: 100%;
-  border-radius: 6px;
+  width: 26px;
+  height: 26px;
+  border-radius: 5px;
+  object-fit: cover;
 }
 
-/* Task Input */
+/* INPUT + BUTTON */
 .task-input {
   display: flex;
-  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .input {
-  flex: 1 1 100%;
-  padding: 10px 15px;
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 50px;
+  background-color: #f2f2f2;
   font-size: 1rem;
-  border: 2px solid #ddd;
-  border-radius: 25px;
-  outline: none;
   color: #333;
-}
-
-.input:focus {
-  border-color: #6c63ff;
+  outline: none;
 }
 
 .btn {
-  flex: 1 1 100%;
-  background-color: #f07532;
+  padding: 12px 24px;
+  background: #ff6a33;
   color: white;
-  font-size: 1rem;
-  padding: 10px;
   border: none;
-  border-radius: 25px;
+  border-radius: 50px;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s ease;
 }
 
 .btn:hover {
-  background-color: #fd5900;
+  background: #e0551e;
 }
 
-/* Task List */
+/* TASK LIST */
 ul {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 ul li {
-  font-size: 1rem;
-  padding: 12px 8px 12px 40px;
-  margin-bottom: 10px;
-  position: relative;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  cursor: pointer;
+  background: #f8f8f8;
+  padding: 12px 16px;
+  border-radius: 12px;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  line-height: 1.4;
-  word-break: break-word;
+  position: relative;
   transition: background 0.2s;
 }
 
-/* Task Text Span */
+ul li:hover {
+  background: #f0f0f0;
+}
+
 ul li .task-text {
   flex: 1;
-  padding-right: 10px;
+  padding-left: 30px;
+  position: relative;
   word-break: break-word;
 }
 
-/* Checked Style - Only on Text */
-ul li.checked .task-text {
-  color: red;
-  text-decoration: line-through;
-}
-
-/* Checkbox Icon - Unchecked */
+/* CHECKBOX CIRCLE */
 ul li::before {
   content: '';
   position: absolute;
+  left: 0;
   top: 50%;
-  left: 12px;
   transform: translateY(-50%);
-  height: 16px;
-  width: 16px;
-  background-color: #aaa;
-  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>') no-repeat center / contain;
-  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>') no-repeat center / contain;
+  height: 18px;
+  width: 18px;
+  background-color: transparent;
+  border: 2px solid #aaa;
+  border-radius: 50%;
+  transition: background-color 0.3s, border 0.3s;
 }
 
-/* Checked Checkbox */
+/* CHECKED STYLE */
+ul li.checked .task-text {
+  text-decoration: line-through;
+  color: #d32f2f;
+}
+
 ul li.checked::before {
-  background-color: #f07532;
-  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24"><path d="M20.285 6.709c-.391-.391-1.023-.391-1.414 0L10 15.585l-4.879-4.88c-.391-.391-1.023-.391-1.414 0s-.391 1.023 0 1.414l5.586 5.586c.391.391 1.023.391 1.414 0L20.285 8.123c.391-.391.391-1.023 0-1.414z"/></svg>') no-repeat center / contain;
-  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24"><path d="M20.285 6.709c-.391-.391-1.023-.391-1.414 0L10 15.585l-4.879-4.88c-.391-.391-1.023-.391-1.414 0s-.391 1.023 0 1.414l5.586 5.586c.391.391 1.023.391 1.414 0L20.285 8.123c.391-.391.391-1.023 0-1.414z"/></svg>') no-repeat center / contain;
+  background-color: #ff6a33;
+  border-color: #ff6a33;
+  background-image: url("data:image/svg+xml,%3Csvg fill='white' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20.285 6.709a1 1 0 00-1.414 0L10 15.585l-4.879-4.88a1 1 0 10-1.414 1.414l5.586 5.586a1 1 0 001.414 0l9.586-9.586a1 1 0 000-1.414z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px;
 }
 
-/* Delete (X) Button */
+/* DELETE BUTTON */
 ul li span {
-  font-size: 20px;
-  color: #555;
+  font-size: 18px;
+  color: #999;
   width: 30px;
   height: 30px;
   text-align: center;
   line-height: 30px;
   border-radius: 50%;
-  transition: background 0.3s;
-  flex-shrink: 0;
+  transition: background 0.3s, color 0.3s;
+  cursor: pointer;
 }
 
 ul li span:hover {
-  background: #e0e0e0;
+  background: #eee;
+  color: #000;
 }
 
-/* Responsive Layout */
-@media (max-width: 600px) {
+/* RESPONSIVE */
+@media screen and (max-width: 480px) {
   .lab {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     flex-direction: column;
-    text-align: center;
+    gap: 6px;
   }
 
   .task-input {
@@ -179,21 +178,13 @@ ul li span:hover {
     width: 100%;
   }
 
-  ul li {
-    font-size: 15px;
-    padding-left: 36px;
+  ul li .task-text {
+    padding-left: 26px;
+    font-size: 0.95rem;
   }
 
   ul li::before {
-    width: 14px;
-    height: 14px;
-    left: 10px;
-  }
-
-  ul li span {
-    width: 28px;
-    height: 28px;
-    font-size: 18px;
-    line-height: 28px;
+    height: 16px;
+    width: 16px;
   }
 }
