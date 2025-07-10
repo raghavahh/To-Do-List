@@ -1,4 +1,4 @@
-/* Reset */
+/* Reset & Base Styles */
 * {
   margin: 0;
   padding: 0;
@@ -11,15 +11,16 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 10px;
   color: #333;
 }
 
 .main {
   background-color: #ffffffdb;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 90%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 100%;
   max-width: 600px;
   padding: 20px;
 }
@@ -31,23 +32,31 @@ body {
 }
 
 .lab {
-  font-size: 2rem;
-  color: #333333;
+  font-size: 1.8rem;
+  color: #333;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
-/* Task Input Section */
+.lab img {
+  width: 32px;
+  height: auto;
+}
+
+/* Task Input */
 .task-input {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 20px;
-  justify-content: space-between;
 }
 
 .input {
   flex: 1 1 60%;
-  padding: 10px;
+  padding: 10px 15px;
   border: 2px solid #ddd;
   border-radius: 25px;
   font-size: 1rem;
@@ -78,31 +87,34 @@ body {
 /* Task List */
 ul {
   list-style: none;
-  margin-top: 10px;
   padding: 0;
+  margin: 0;
 }
 
 ul li {
   font-size: 16px;
-  padding: 10px 8px 10px 40px;
-  position: relative;
-  cursor: pointer;
-  user-select: none;
+  padding: 12px 8px 12px 40px;
   margin-bottom: 10px;
+  position: relative;
   background-color: #f9f9f9;
   border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   line-height: 1.4;
 }
 
-/* Custom checkbox: unchecked */
+/* Checkbox Icon - Unchecked */
 ul li::before {
   content: '';
   position: absolute;
-  height: 16px;
-  width: 16px;
   top: 50%;
   left: 12px;
   transform: translateY(-50%);
+  height: 16px;
+  width: 16px;
   background-color: #aaa;
   -webkit-mask-image: url('data:image/svg+xml;utf8,<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>');
   -webkit-mask-repeat: no-repeat;
@@ -114,7 +126,7 @@ ul li::before {
   mask-size: contain;
 }
 
-/* Custom checkbox: checked */
+/* Checked Style */
 ul li.checked {
   color: red;
   text-decoration: line-through;
@@ -126,39 +138,43 @@ ul li.checked::before {
   mask-image: url('data:image/svg+xml;utf8,<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.285,6.709c-0.391-0.391-1.023-0.391-1.414,0L10,15.585l-4.879-4.88c-0.391-0.391-1.023-0.391-1.414,0 c-0.391,0.391-0.391,1.023,0,1.414l5.586,5.586c0.391,0.391,1.023,0.391,1.414,0L20.285,8.123 C20.676,7.732,20.676,7.1,20.285,6.709z"/></svg>');
 }
 
-/* Delete Button (X) */
+/* Delete (X) Button */
 ul li span {
-  position: absolute;
-  right: 15px;
-  top: 8px;
-  width: 30px;
-  height: 30px;
   font-size: 20px;
   color: #555;
-  line-height: 30px;
+  width: 30px;
+  height: 30px;
   text-align: center;
+  line-height: 30px;
   border-radius: 50%;
+  transition: background 0.3s;
 }
 
 ul li span:hover {
-  background: rgb(224, 224, 224);
+  background: #e0e0e0;
 }
 
 /* Responsive Layout */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 480px) {
   .lab {
-    font-size: 1.5rem;
-    text-align: center;
+    font-size: 1.4rem;
+    flex-direction: column;
+    gap: 6px;
   }
 
   .task-input {
     flex-direction: column;
-    align-items: stretch;
+    gap: 10px;
   }
 
   .input,
   .btn {
     width: 100%;
+  }
+
+  ul li {
+    font-size: 15px;
+    padding: 10px 8px 10px 36px;
   }
 
   ul li::before {
@@ -168,7 +184,9 @@ ul li span:hover {
   }
 
   ul li span {
-    top: 5px;
-    right: 10px;
+    width: 28px;
+    height: 28px;
+    font-size: 18px;
+    line-height: 28px;
   }
 }
