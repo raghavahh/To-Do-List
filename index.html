@@ -1,42 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List</title>
-    <link rel="stylesheet" href="todo.css">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To-Do List</title>
+  <link rel="stylesheet" href="todo.css" />
 </head>
-
 <body>
-    <div class="main">
-        <div class="header">
-            <label class="lab">
-                To-Do List
-                <img src="https://img.freepik.com/free-vector/businessman-holding-pencil-big-complete-checklist-with-tick-marks_1150-35019.jpg?semt=ais_hybrid&w=740" alt="To-Do List Image" />
-            </label>
-        </div>
-        <div class="task-input">
-            <input type="text" class="input" id="input-box" placeholder="  Add your task" />
-            <button class="btn" onclick="addtask()"><b>ADD</b></button>
-        </div>
-
-        <div class="dropdown">
-            <button class="dropbtn">Filter</button>
-            <div class="dropdown-content">
-                <a href="#" data-filter="completed">Completed</a>
-                <a href="#" data-filter="incomplete">Incomplete</a>
-            </div>
-        </div>
-        <ul id="listcnt">
-            <!-- <li class="checked"> TASK 1</li>
-            <li> TASK 2</li>
-            <li>TASK 3</li>-->
-        </ul>
+  <div class="main">
+    <div class="header">
+      <div class="lab">
+        To-Do List
+        <img
+          src="https://img.freepik.com/free-vector/businessman-holding-pencil-big-complete-checklist-with-tick-marks_1150-35019.jpg?semt=ais_hybrid&w=740"
+          alt="To-Do List Image"
+        />
+      </div>
     </div>
 
-    <script src="todo.js"></script>
-</body>
+    <div class="task-input">
+      <input type="text" class="input" id="input-box" placeholder="Add your task" />
+      <button class="btn" onclick="addtask()"><b>ADD</b></button>
+    </div>
 
-</html
+    <ul id="listcnt">
+      <!-- <li class="checked">TASK 1</li>
+      <li>TASK 2</li>
+      <li>TASK 3</li> -->
+    </ul>
+  </div>
+
+  <script src="todo.js"></script>
+</body>
+</html>
