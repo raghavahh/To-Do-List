@@ -1,284 +1,159 @@
-/* General Reset */
+/* Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Arial', sans-serif;
-    background-image: linear-gradient(45deg, black, rgb(232, 125, 232), rgba(0, 0, 0, 0.771));
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: #333;
+  font-family: 'Arial', sans-serif;
+  background-image: linear-gradient(45deg, black, rgb(232, 125, 232), rgba(0, 0, 0, 0.771));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #333;
 }
 
 .main {
-    background-color: #ffffffdb;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 600px;
-    padding: 20px;
+  background-color: #ffffffdb;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 600px;
+  padding: 20px;
 }
 
 .header {
-    text-align: center;
-    margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .lab {
-    font-size: 2rem;
-    color: #333333;
-    font-weight: bold;
-    position: relative;
-}
-
-.lab img {
-    width: 60px;
-    height: auto;
-    vertical-align: middle;
-    margin-left: 10px;
+  font-size: 2rem;
+  color: #333333;
+  font-weight: bold;
 }
 
 /* Task Input */
 .task-input {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .input {
-    width: 85%;
-    padding: 10px;
-    border: 2px solid #ddd;
-    border-radius: 25px;
-    font-size: 1rem;
-    color: #333;
-    outline: none;
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  font-size: 1rem;
+  color: #333;
+  outline: none;
 }
 
 .input:focus {
-    border-color: #6c63ff;
+  border-color: #6c63ff;
 }
 
 .btn {
-    background-color: #f07532;
-    color: white;
-    font-size: 1rem;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  background-color: #f07532;
+  color: white;
+  font-size: 1rem;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-    background-color: #fd5900;
-}
-
-/* Dropdown */
-.dropdown {
-    position: relative;
-    display: inline-block;
-    font-family: Arial, sans-serif;
-    bottom: 120px;
-    left: 485px;
-}
-
-.dropbtn {
-    background-color: #6c63ff;
-    color: white;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    user-select: none;
-    transition: background-color 0.3s ease;
-}
-
-.dropbtn:hover {
-    background-color: #574bde;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #ffffff;
-    min-width: 100px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    z-index: 1;
-    margin-top: 5px;
-}
-
-.dropdown-content a {
-    color: #333;
-    padding: 10px 15px;
-    text-decoration: none;
-    display: block;
-    border-radius: 10px;
-    transition: background-color 1s ease;
-}
-
-.dropdown-content a:hover {
-    background-color: #f0f0ff;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
+  background-color: #fd5900;
 }
 
 /* Task List */
+ul {
+  list-style: none;
+  margin-top: 10px;
+  padding: 0;
+}
+
 ul li {
-    list-style: none;
-    font-size: 17px;
-    padding: 12px 8px 12px 50px;
-    user-select: none;
-    cursor: pointer;
-    position: relative;
-    right: 10px;
-    bottom: 30px;
+  font-size: 17px;
+  padding: 12px 8px 12px 50px;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
 }
 
+/* Unchecked icon */
 ul li::before {
-    content: '';
-    position: absolute;
-    height: 20px;
-    width: 20px;
-    background-image: url('https://cdn-icons-png.flaticon.com/512/1828/1828774.png');
-    background-size: cover;
-    background-position: center;
-    top: 12px;
-    left: 20px;
+  content: '';
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  top: 15px;
+  left: 15px;
+  background-color: #aaa;
+  -webkit-mask-image: url('data:image/svg+xml;utf8,<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>');
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: cover;
+  mask-image: url('data:image/svg+xml;utf8,<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>');
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: cover;
 }
 
+/* Checked icon */
 ul li.checked {
-    color: red;
-    text-decoration: line-through;
+  color: red;
+  text-decoration: line-through;
 }
 
 ul li.checked::before {
-    content: '';
-    position: absolute;
-    height: 20px;
-    width: 20px;
-    background-image: url('https://cdn-icons-png.flaticon.com/512/845/845646.png');
-    background-size: cover;
-    background-position: center;
-    top: 12px;
-    left: 20px;
+  background-color: #f07532;
+  -webkit-mask-image: url('data:image/svg+xml;utf8,<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.285,6.709c-0.391-0.391-1.023-0.391-1.414,0L10,15.585l-4.879-4.88c-0.391-0.391-1.023-0.391-1.414,0 c-0.391,0.391-0.391,1.023,0,1.414l5.586,5.586c0.391,0.391,1.023,0.391,1.414,0L20.285,8.123 C20.676,7.732,20.676,7.1,20.285,6.709z"/></svg>');
+  mask-image: url('data:image/svg+xml;utf8,<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.285,6.709c-0.391-0.391-1.023-0.391-1.414,0L10,15.585l-4.879-4.88c-0.391-0.391-1.023-0.391-1.414,0 c-0.391,0.391-0.391,1.023,0,1.414l5.586,5.586c0.391,0.391,1.023,0.391,1.414,0L20.285,8.123 C20.676,7.732,20.676,7.1,20.285,6.709z"/></svg>');
 }
 
+/* Close button */
 ul li span {
-    position: absolute;
-    right: 0;
-    top: 5px;
-    width: 40px;
-    height: 40px;
-    font-size: 22px;
-    color: #555;
-    line-height: 40px;
-    text-align: center;
-    border-radius: 50%;
+  position: absolute;
+  right: 15px;
+  top: 12px;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  color: #555;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 50%;
 }
 
 ul li span:hover {
-    background: rgb(224, 224, 224);
+  background: rgb(224, 224, 224);
 }
 
-/* Responsive Styles */
-
-/* Mobile Devices (portrait) */
+/* Responsive Layout */
 @media screen and (max-width: 600px) {
-    .lab {
-        font-size: 1.5rem; /* Smaller font size for smaller screens */
-        position: static;
-        text-align: center;
-    }
+  .lab {
+    font-size: 1.5rem;
+    text-align: center;
+  }
 
-    .task-input {
-        flex-direction: column;
-        align-items: stretch;
-    }
+  .task-input {
+    flex-direction: column;
+  }
 
-    .input {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    .btn {
-        width: 100%;
-    }
-
-    .dropdown {
-        position: static;
-        text-align: center;
-        margin-top: 20px;
-    }
-
-    .dropdown-content {
-        width: 100%;
-    }
-
-    .dropbtn {
-        width: 100%;
-    }
-
-    ul li {
-        padding: 12px 8px;
-        position: relative;
-        right: 0;
-        bottom: 0;
-    }
-
-    ul li::before {
-        left: 10px;
-    }
-}
-
-/* Tablets (landscape) */
-@media screen and (min-width: 601px) and (max-width: 1024px) {
-    .task-input {
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .input {
-        width: 70%;
-    }
-
-    .btn {
-        width: 25%;
-    }
-
-    .dropdown {
-        position: static;
-        text-align: right;
-        margin-top: 20px;
-    }
-}
-
-/* Larger Screens (Desktop) */
-@media screen and (min-width: 1025px) {
-    .task-input {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .input {
-        width: 75%;
-    }
-
-    .btn {
-        width: 20%;
-    }
-
-    .dropdown {
-        width: auto;
-        text-align: left;
-    }
+  .input,
+  .btn {
+    width: 100%;
+  }
 }
