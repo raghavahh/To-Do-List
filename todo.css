@@ -111,6 +111,19 @@ ul li {
   transition: background 0.2s;
 }
 
+/* Task Text Span */
+ul li .task-text {
+  flex: 1;
+  padding-right: 10px;
+  word-break: break-word;
+}
+
+/* Checked Style - Only on Text */
+ul li.checked .task-text {
+  color: red;
+  text-decoration: line-through;
+}
+
 /* Checkbox Icon - Unchecked */
 ul li::before {
   content: '';
@@ -125,12 +138,7 @@ ul li::before {
   mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>') no-repeat center / contain;
 }
 
-/* Checked Style */
-ul li.checked {
-  color: red;
-  text-decoration: line-through;
-}
-
+/* Checked Checkbox */
 ul li.checked::before {
   background-color: #f07532;
   -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24"><path d="M20.285 6.709c-.391-.391-1.023-.391-1.414 0L10 15.585l-4.879-4.88c-.391-.391-1.023-.391-1.414 0s-.391 1.023 0 1.414l5.586 5.586c.391.391 1.023.391 1.414 0L20.285 8.123c.391-.391.391-1.023 0-1.414z"/></svg>') no-repeat center / contain;
@@ -188,3 +196,4 @@ ul li span:hover {
     font-size: 18px;
     line-height: 28px;
   }
+}
