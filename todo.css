@@ -1,4 +1,4 @@
-/* Reset & Base Styles */
+/* Reset */
 * {
   margin: 0;
   padding: 0;
@@ -6,23 +6,22 @@
 }
 
 body {
-  font-family: 'Arial', sans-serif;
-  background-image: linear-gradient(45deg, black, rgb(232, 125, 232), rgba(0, 0, 0, 0.771));
+  font-family: Arial, sans-serif;
+  background: linear-gradient(45deg, black, rgb(232, 125, 232), rgba(0, 0, 0, 0.771));
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   padding: 10px;
-  color: #333;
 }
 
 .main {
-  background-color: #ffffffdb;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: #ffffffdb;
   width: 100%;
   max-width: 600px;
+  border-radius: 10px;
   padding: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 /* Header */
@@ -33,7 +32,6 @@ body {
 
 .lab {
   font-size: 1.8rem;
-  color: #333;
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -42,11 +40,11 @@ body {
 }
 
 .lab img {
-  width: 32px;
+  width: 30px;
   height: auto;
 }
 
-/* Task Input */
+/* Input Area */
 .task-input {
   display: flex;
   flex-wrap: wrap;
@@ -55,78 +53,63 @@ body {
 }
 
 .input {
-  flex: 1 1 60%;
+  flex: 1 1 100%;
   padding: 10px 15px;
-  border: 2px solid #ddd;
-  border-radius: 25px;
   font-size: 1rem;
-  color: #333;
+  border: 2px solid #ccc;
+  border-radius: 25px;
   outline: none;
 }
 
-.input:focus {
-  border-color: #6c63ff;
-}
-
 .btn {
-  flex: 1 1 30%;
-  background-color: #f07532;
-  color: white;
-  font-size: 1rem;
+  flex: 1 1 100%;
   padding: 10px;
+  font-size: 1rem;
+  background: #f07532;
+  color: white;
   border: none;
   border-radius: 25px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s;
 }
 
 .btn:hover {
-  background-color: #fd5900;
+  background: #fd5900;
 }
 
 /* Task List */
 ul {
   list-style: none;
-  padding: 0;
-  margin: 0;
 }
 
 ul li {
-  font-size: 16px;
-  padding: 12px 8px 12px 40px;
-  margin-bottom: 10px;
   position: relative;
-  background-color: #f9f9f9;
+  background: #f9f9f9;
+  margin-bottom: 10px;
+  padding: 12px 40px 12px 40px;
   border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.2s;
+  font-size: 16px;
+  word-break: break-word;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  line-height: 1.4;
 }
 
-/* Checkbox Icon - Unchecked */
+/* Unchecked icon */
 ul li::before {
   content: '';
   position: absolute;
-  top: 50%;
   left: 12px;
+  top: 50%;
   transform: translateY(-50%);
-  height: 16px;
   width: 16px;
-  background-color: #aaa;
-  -webkit-mask-image: url('data:image/svg+xml;utf8,<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>');
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  -webkit-mask-size: contain;
-  mask-image: url('data:image/svg+xml;utf8,<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>');
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-size: contain;
+  height: 16px;
+  background-color: #888;
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>') no-repeat center / contain;
+  mask: url('data:image/svg+xml;utf8,<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>') no-repeat center / contain;
 }
 
-/* Checked Style */
+/* Checked icon */
 ul li.checked {
   color: red;
   text-decoration: line-through;
@@ -134,14 +117,15 @@ ul li.checked {
 
 ul li.checked::before {
   background-color: #f07532;
-  -webkit-mask-image: url('data:image/svg+xml;utf8,<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.285,6.709c-0.391-0.391-1.023-0.391-1.414,0L10,15.585l-4.879-4.88c-0.391-0.391-1.023-0.391-1.414,0 c-0.391,0.391-0.391,1.023,0,1.414l5.586,5.586c0.391,0.391,1.023,0.391,1.414,0L20.285,8.123 C20.676,7.732,20.676,7.1,20.285,6.709z"/></svg>');
-  mask-image: url('data:image/svg+xml;utf8,<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.285,6.709c-0.391-0.391-1.023-0.391-1.414,0L10,15.585l-4.879-4.88c-0.391-0.391-1.023-0.391-1.414,0 c-0.391,0.391-0.391,1.023,0,1.414l5.586,5.586c0.391,0.391,1.023,0.391,1.414,0L20.285,8.123 C20.676,7.732,20.676,7.1,20.285,6.709z"/></svg>');
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24"><path d="M20.285 6.709c-.391-.391-1.023-.391-1.414 0L10 15.585l-4.879-4.88c-.391-.391-1.023-.391-1.414 0s-.391 1.023 0 1.414l5.586 5.586c.391.391 1.023.391 1.414 0L20.285 8.123c.391-.391.391-1.023 0-1.414z"/></svg>') no-repeat center / contain;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24"><path d="M20.285 6.709c-.391-.391-1.023-.391-1.414 0L10 15.585l-4.879-4.88c-.391-.391-1.023-.391-1.414 0s-.391 1.023 0 1.414l5.586 5.586c.391.391 1.023.391 1.414 0L20.285 8.123c.391-.391.391-1.023 0-1.414z"/></svg>') no-repeat center / contain;
 }
 
-/* Delete (X) Button */
+/* Close (X) Button */
 ul li span {
   font-size: 20px;
   color: #555;
+  cursor: pointer;
   width: 30px;
   height: 30px;
   text-align: center;
@@ -154,39 +138,41 @@ ul li span:hover {
   background: #e0e0e0;
 }
 
-/* Responsive Layout */
-@media screen and (max-width: 480px) {
-  .lab {
-    font-size: 1.4rem;
-    flex-direction: column;
-    gap: 6px;
-  }
-
+/* Responsive Design */
+@media (min-width: 500px) {
   .task-input {
-    flex-direction: column;
-    gap: 10px;
+    flex-wrap: nowrap;
   }
 
-  .input,
+  .input {
+    flex: 1 1 75%;
+  }
+
   .btn {
-    width: 100%;
+    flex: 1 1 20%;
+  }
+}
+
+@media (max-width: 320px) {
+  .lab {
+    font-size: 1.3rem;
   }
 
   ul li {
-    font-size: 15px;
-    padding: 10px 8px 10px 36px;
+    font-size: 14px;
+    padding-left: 35px;
   }
 
   ul li::before {
-    height: 14px;
     width: 14px;
-    left: 10px;
+    height: 14px;
+    left: 8px;
   }
 
   ul li span {
-    width: 28px;
-    height: 28px;
-    font-size: 18px;
-    line-height: 28px;
+    width: 26px;
+    height: 26px;
+    font-size: 16px;
+    line-height: 26px;
   }
 }
