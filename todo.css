@@ -1,5 +1,4 @@
 /* General Reset */
-
 * {
     margin: 0;
     padding: 0;
@@ -9,7 +8,6 @@
 body {
     font-family: 'Arial', sans-serif;
     background-image: linear-gradient(45deg, black, rgb(232, 125, 232), rgba(0, 0, 0, 0.771));
-    /* Light grey background */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,7 +34,6 @@ body {
     color: #333333;
     font-weight: bold;
     position: relative;
-    right: 150px;
 }
 
 .lab img {
@@ -46,6 +43,7 @@ body {
     margin-left: 10px;
 }
 
+/* Task Input */
 .task-input {
     display: flex;
     justify-content: space-between;
@@ -81,11 +79,11 @@ body {
     background-color: #fd5900;
 }
 
+/* Dropdown */
 .dropdown {
     position: relative;
     display: inline-block;
     font-family: Arial, sans-serif;
-    position: relative;
     bottom: 120px;
     left: 485px;
 }
@@ -134,6 +132,7 @@ body {
     display: block;
 }
 
+/* Task List */
 ul li {
     list-style: none;
     font-size: 17px;
@@ -189,4 +188,97 @@ ul li span {
 
 ul li span:hover {
     background: rgb(224, 224, 224);
+}
+
+/* Responsive Styles */
+
+/* Mobile Devices (portrait) */
+@media screen and (max-width: 600px) {
+    .lab {
+        font-size: 1.5rem; /* Smaller font size for smaller screens */
+        position: static;
+        text-align: center;
+    }
+
+    .task-input {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .dropdown {
+        position: static;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .dropdown-content {
+        width: 100%;
+    }
+
+    .dropbtn {
+        width: 100%;
+    }
+
+    ul li {
+        padding: 12px 8px;
+        position: relative;
+        right: 0;
+        bottom: 0;
+    }
+
+    ul li::before {
+        left: 10px;
+    }
+}
+
+/* Tablets (landscape) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+    .task-input {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .input {
+        width: 70%;
+    }
+
+    .btn {
+        width: 25%;
+    }
+
+    .dropdown {
+        position: static;
+        text-align: right;
+        margin-top: 20px;
+    }
+}
+
+/* Larger Screens (Desktop) */
+@media screen and (min-width: 1025px) {
+    .task-input {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .input {
+        width: 75%;
+    }
+
+    .btn {
+        width: 20%;
+    }
+
+    .dropdown {
+        width: auto;
+        text-align: left;
+    }
 }
