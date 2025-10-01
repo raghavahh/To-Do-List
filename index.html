@@ -448,6 +448,20 @@ Task 3</pre>
       reader.readAsText(file);
       event.target.value = ''; // Reset input
     }
+
+    function saveData() {
+      const data = listcnt.innerHTML;
+      localStorage.setItem("todoData", data);
+    }
+
+    function showTask() {
+      const savedData = localStorage.getItem("todoData");
+      if (savedData) {
+        listcnt.innerHTML = savedData;
+      }
+    }
+    
   </script>
 </body>
 </html>
+
