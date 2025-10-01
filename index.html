@@ -5,11 +5,277 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>To-Do List</title>
-  <link rel="stylesheet" href="todo.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-image: linear-gradient(45deg, black, rgb(232, 125, 232), rgba(0, 0, 0, 0.771));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #333;
+      padding: 20px;
+    }
+
+    .main {
+      background-color: #ffffffdb;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 600px;
+      padding: 20px;
+      position: relative;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .settings-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #6c63ff;
+      transition: transform 0.3s ease;
+    }
+
+    .settings-icon:hover {
+      transform: rotate(90deg);
+    }
+
+    .lab {
+      font-size: 2rem;
+      color: #333333;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .lab img {
+      width: 60px;
+      height: auto;
+    }
+
+    .task-input {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .input {
+      flex: 1;
+      padding: 10px;
+      border: 2px solid #ddd;
+      border-radius: 25px;
+      font-size: 1rem;
+      color: #333;
+      outline: none;
+    }
+
+    .input:focus {
+      border-color: #6c63ff;
+    }
+
+    .btn {
+      background-color: #f07532;
+      color: white;
+      font-size: 1rem;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #fd5900;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    ul li {
+      font-size: 17px;
+      padding: 12px 8px 12px 50px;
+      user-select: none;
+      cursor: pointer;
+      position: relative;
+      transition: background-color 0.2s ease;
+    }
+
+    ul li:hover {
+      background-color: #f5f5f5;
+      border-radius: 5px;
+    }
+
+    ul li::before {
+      content: '';
+      position: absolute;
+      height: 20px;
+      width: 20px;
+      background-image: url('https://cdn-icons-png.flaticon.com/512/1828/1828774.png');
+      background-size: cover;
+      background-position: center;
+      top: 12px;
+      left: 20px;
+    }
+
+    ul li.checked {
+      color: red;
+      text-decoration: line-through;
+    }
+
+    ul li.checked::before {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/845/845646.png');
+    }
+
+    ul li span {
+      position: absolute;
+      right: 10px;
+      top: 5px;
+      width: 40px;
+      height: 40px;
+      font-size: 22px;
+      color: #555;
+      line-height: 40px;
+      text-align: center;
+      border-radius: 50%;
+    }
+
+    ul li span:hover {
+      background: rgb(224, 224, 224);
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      line-height: 20px;
+    }
+
+    .close:hover {
+      color: #000;
+    }
+
+    .modal h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .file-upload-area {
+      border: 2px dashed #6c63ff;
+      border-radius: 10px;
+      padding: 30px;
+      text-align: center;
+      margin: 20px 0;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .file-upload-area:hover {
+      background-color: #f0f0ff;
+    }
+
+    .file-upload-area input[type="file"] {
+      display: none;
+    }
+
+    .upload-btn {
+      background-color: #6c63ff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 10px;
+    }
+
+    .upload-btn:hover {
+      background-color: #574bde;
+    }
+
+    .format-info {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+
+    .format-info h3 {
+      margin-bottom: 10px;
+      color: #6c63ff;
+    }
+
+    .format-info pre {
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+      .lab {
+        font-size: 1.5rem;
+      }
+
+      .task-input {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      ul li {
+        font-size: 15px;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="main">
     <div class="header">
+      <div class="settings-icon" onclick="openSettings()">⚙️</div>
       <div class="lab">
         To-Do List
         <img
@@ -24,13 +290,164 @@
       <button class="btn" onclick="addtask()"><b>ADD</b></button>
     </div>
 
-    <ul id="listcnt">
-      <!-- <li class="checked">TASK 1</li>
-      <li>TASK 2</li>
-      <li>TASK 3</li> -->
-    </ul>
+    <ul id="listcnt"></ul>
   </div>
 
-  <script src="todo.js"></script>
+  <!-- Settings Modal -->
+  <div id="settingsModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeSettings()">&times;</span>
+      <h2>Import Tasks from File</h2>
+      
+      <div class="file-upload-area" onclick="document.getElementById('fileInput').click()">
+        <p>📁 Click to upload a file</p>
+        <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">Supports .txt and .json files</p>
+        <input type="file" id="fileInput" accept=".txt,.json" onchange="handleFileUpload(event)" />
+      </div>
+
+      <div class="format-info">
+        <h3>Supported Formats:</h3>
+        <p><strong>Text File (.txt):</strong></p>
+        <pre>Task 1
+Task 2
+Task 3</pre>
+        
+        <p style="margin-top: 15px;"><strong>JSON File (.json):</strong></p>
+        <pre>{
+  "tasks": [
+    "Task 1",
+    "Task 2",
+    "Task 3"
+  ]
+}</pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const inputBox = document.getElementById("input-box");
+    const listcnt = document.getElementById("listcnt");
+
+    function addtask(taskText = null) {
+      const text = taskText || inputBox.value;
+      if (text === '') {
+        if (!taskText) alert("You must write something");
+        return;
+      }
+      
+      let li = document.createElement("li");
+      li.textContent = text;
+      listcnt.appendChild(li);
+      let span = document.createElement("span");
+      span.innerHTML = "\u00d7";
+      li.appendChild(span);
+      
+      if (!taskText) inputBox.value = "";
+      saveData();
+    }
+
+    listcnt.addEventListener("click", function(e) {
+      if (e.target.tagName === "LI") {
+        e.target.classList.toggle("checked");
+        saveData();
+      } else if (e.target.tagName === "SPAN") {
+        e.target.parentElement.remove();
+        saveData();
+      }
+    }, false);
+
+    function saveData() {
+      const data = listcnt.innerHTML;
+      // Store in memory instead of localStorage
+      window.todoData = data;
+    }
+
+    function showTask() {
+      if (window.todoData) {
+        listcnt.innerHTML = window.todoData;
+      }
+    }
+
+    showTask();
+
+    inputBox.addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        addtask();
+      }
+    });
+
+    // Settings Modal Functions
+    function openSettings() {
+      document.getElementById("settingsModal").style.display = "block";
+    }
+
+    function closeSettings() {
+      document.getElementById("settingsModal").style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById("settingsModal");
+      if (event.target === modal) {
+        closeSettings();
+      }
+    }
+
+    // File Upload Handler
+    function handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      
+      reader.onload = function(e) {
+        const content = e.target.result;
+        const fileExtension = file.name.split('.').pop().toLowerCase();
+        
+        try {
+          let tasks = [];
+          
+          if (fileExtension === 'json') {
+            const jsonData = JSON.parse(content);
+            
+            // Support multiple JSON formats
+            if (Array.isArray(jsonData)) {
+              tasks = jsonData;
+            } else if (jsonData.tasks && Array.isArray(jsonData.tasks)) {
+              tasks = jsonData.tasks;
+            } else if (jsonData.items && Array.isArray(jsonData.items)) {
+              tasks = jsonData.items;
+            } else {
+              alert("JSON format not recognized. Please use {\"tasks\": [...]} format.");
+              return;
+            }
+          } else if (fileExtension === 'txt') {
+            // Split by newlines and filter empty lines
+            tasks = content.split('\n')
+              .map(line => line.trim())
+              .filter(line => line.length > 0);
+          }
+          
+          // Clear existing tasks
+          listcnt.innerHTML = '';
+          
+          // Add all tasks
+          tasks.forEach(task => {
+            if (typeof task === 'string' && task.trim()) {
+              addtask(task.trim());
+            }
+          });
+          
+          alert(`Successfully imported ${tasks.length} task(s)!`);
+          closeSettings();
+          
+        } catch (error) {
+          alert("Error reading file: " + error.message);
+        }
+      };
+      
+      reader.readAsText(file);
+      event.target.value = ''; // Reset input
+    }
+  </script>
 </body>
 </html>
