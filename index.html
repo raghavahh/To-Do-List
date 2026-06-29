@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>To-Do List</title>
+  <title>To-Do List with AI Sidekick</title>
   <style>
     * {
       margin: 0;
@@ -21,16 +21,35 @@
       min-height: 100vh;
       color: #333;
       padding: 20px;
+      gap: 20px; /* Space between To-Do and Chatbot */
     }
 
+    /* Dual layout container behavior */
     .main {
       background-color: #ffffffdb;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      width: 90%;
-      max-width: 600px;
+      width: 100%;
+      max-width: 550px;
       padding: 20px;
       position: relative;
+      height: 600px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* AI Chat Panel styling */
+    .ai-panel {
+      background-color: #ffffffed;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      height: 600px;
+      display: flex;
+      flex-direction: column;
+      border-left: 4px solid #6c63ff;
     }
 
     .header {
@@ -64,7 +83,7 @@
     }
 
     .lab img {
-      width: 60px;
+      width: 40px;
       height: auto;
     }
 
@@ -101,6 +120,13 @@
 
     .btn:hover {
       background-color: #fd5900;
+    }
+
+    /* Scrollable areas for lists & messages */
+    .list-wrapper {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 10px;
     }
 
     ul {
@@ -157,6 +183,60 @@
 
     ul li span:hover {
       background: rgb(224, 224, 224);
+    }
+
+    /* Chat Styling Elements */
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .msg {
+      max-width: 80%;
+      padding: 10px 14px;
+      border-radius: 15px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .msg.bot {
+      background-color: #f0f0ff;
+      color: #333;
+      align-self: flex-start;
+      border-top-left-radius: 2px;
+    }
+
+    .msg.user {
+      background-color: #6c63ff;
+      color: white;
+      align-self: flex-end;
+      border-top-right-radius: 2px;
+    }
+
+    .chat-shortcuts {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .shortcut-btn {
+      background: #eee;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .shortcut-btn:hover {
+      background: #ddd;
     }
 
     /* Modal Styles */
@@ -217,21 +297,6 @@
       display: none;
     }
 
-    .upload-btn {
-      background-color: #6c63ff;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 1rem;
-      margin-top: 10px;
-    }
-
-    .upload-btn:hover {
-      background-color: #574bde;
-    }
-
     .format-info {
       background-color: #f9f9f9;
       padding: 15px;
@@ -253,11 +318,20 @@
       font-size: 0.85rem;
     }
 
-    @media (max-width: 768px) {
-      .lab {
-        font-size: 1.5rem;
+    @media (max-width: 900px) {
+      body {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        height: auto;
       }
+      .main, .ai-panel {
+        max-width: 100%;
+        height: 500px;
+      }
+    }
 
+    @media (max-width: 480px) {
       .task-input {
         flex-direction: column;
       }
@@ -273,6 +347,7 @@
   </style>
 </head>
 <body>
+  
   <div class="main">
     <div class="header">
       <div class="settings-icon" onclick="openSettings()">⚙️</div>
@@ -290,10 +365,33 @@
       <button class="btn" onclick="addtask()"><b>ADD</b></button>
     </div>
 
-    <ul id="listcnt"></ul>
+    <div class="list-wrapper">
+      <ul id="listcnt"></ul>
+    </div>
   </div>
 
-  <!-- Settings Modal -->
+  <div class="ai-panel">
+    <div class="header">
+      <div class="lab" style="font-size: 1.5rem; justify-content: flex-start;">
+        ✨ AI Assistant
+      </div>
+    </div>
+    
+    <div class="chat-messages" id="chat-box">
+      <div class="msg bot">Hi there! I am your companion engine. Need a layout overview, some rapid formatting context, or a quick spark of motivation? Ask away!</div>
+    </div>
+
+    <div class="chat-shortcuts">
+      <button class="shortcut-btn" onclick="quickAction('Analyze my list')">📊 Analyze tasks</button>
+      <button class="shortcut-btn" onclick="quickAction('Give me motivation')">🔥 Motivation</button>
+    </div>
+
+    <div class="task-input" style="margin-bottom: 0;">
+      <input type="text" class="input" id="chat-input" placeholder="Ask AI anything..." />
+      <button class="btn" style="background-color: #6c63ff;" onclick="sendChatMessage()"><b>Send</b></button>
+    </div>
+  </div>
+
   <div id="settingsModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeSettings()">&times;</span>
@@ -308,18 +406,10 @@
       <div class="format-info">
         <h3>Supported Formats:</h3>
         <p><strong>Text File (.txt):</strong></p>
-        <pre>Task 1
-Task 2
-Task 3</pre>
+        <pre>Task 1\nTask 2\nTask 3</pre>
         
         <p style="margin-top: 15px;"><strong>JSON File (.json):</strong></p>
-        <pre>{
-  "tasks": [
-    "Task 1",
-    "Task 2",
-    "Task 3"
-  ]
-}</pre>
+        <pre>{\n  "tasks": [\n    "Task 1",\n    "Task 2",\n    "Task 3"\n  ]\n}</pre>
       </div>
     </div>
   </div>
@@ -327,6 +417,21 @@ Task 3</pre>
   <script>
     const inputBox = document.getElementById("input-box");
     const listcnt = document.getElementById("listcnt");
+    const chatInput = document.getElementById("chat-input");
+    const chatBox = document.getElementById("chat-box");
+
+    // Re-added dual execution safeguards for data saving
+    function saveData() {
+      const data = listcnt.innerHTML;
+      localStorage.setItem("todoData", data);
+    }
+
+    function showTask() {
+      const savedData = localStorage.getItem("todoData");
+      if (savedData) {
+        listcnt.innerHTML = savedData;
+      }
+    }
 
     function addtask(taskText = null) {
       const text = taskText || inputBox.value;
@@ -355,18 +460,6 @@ Task 3</pre>
         saveData();
       }
     }, false);
-
-    function saveData() {
-      const data = listcnt.innerHTML;
-      // Store in memory instead of localStorage
-      window.todoData = data;
-    }
-
-    function showTask() {
-      if (window.todoData) {
-        listcnt.innerHTML = window.todoData;
-      }
-    }
 
     showTask();
 
@@ -408,8 +501,6 @@ Task 3</pre>
           
           if (fileExtension === 'json') {
             const jsonData = JSON.parse(content);
-            
-            // Support multiple JSON formats
             if (Array.isArray(jsonData)) {
               tasks = jsonData;
             } else if (jsonData.tasks && Array.isArray(jsonData.tasks)) {
@@ -421,16 +512,13 @@ Task 3</pre>
               return;
             }
           } else if (fileExtension === 'txt') {
-            // Split by newlines and filter empty lines
             tasks = content.split('\n')
               .map(line => line.trim())
               .filter(line => line.length > 0);
           }
           
-          // Clear existing tasks
           listcnt.innerHTML = '';
           
-          // Add all tasks
           tasks.forEach(task => {
             if (typeof task === 'string' && task.trim()) {
               addtask(task.trim());
@@ -446,22 +534,74 @@ Task 3</pre>
       };
       
       reader.readAsText(file);
-      event.target.value = ''; // Reset input
+      event.target.value = '';
     }
 
-    function saveData() {
-      const data = listcnt.innerHTML;
-      localStorage.setItem("todoData", data);
+    // --- Chatbot Logic Engine ---
+    function sendChatMessage() {
+      const query = chatInput.value.trim();
+      if (!query) return;
+
+      appendMessage(query, 'user');
+      chatInput.value = '';
+
+      // Simulate a smart responsive delay
+      setTimeout(() => {
+        processAIResponse(query);
+      }, 400);
     }
 
-    function showTask() {
-      const savedData = localStorage.getItem("todoData");
-      if (savedData) {
-        listcnt.innerHTML = savedData;
+    function appendMessage(text, sender) {
+      const msgDiv = document.createElement("div");
+      msgDiv.classList.add("msg", sender);
+      msgDiv.textContent = text;
+      chatBox.appendChild(msgDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function quickAction(action) {
+      appendMessage(action, 'user');
+      setTimeout(() => {
+        processAIResponse(action);
+      }, 400);
+    }
+
+    function processAIResponse(query) {
+      const lowercaseQuery = query.toLowerCase();
+      const rawTasks = Array.from(listcnt.querySelectorAll("li"));
+      
+      // Calculate data attributes for context aware responses
+      const totalTasks = rawTasks.length;
+      const completedTasks = rawTasks.filter(li => li.classList.contains("checked")).length;
+      const activeTasks = totalTasks - completedTasks;
+
+      let reply = "I'm processing that prompt! If you connect a real API key later, I can provide dynamic LLM reasoning here.";
+
+      if (lowercaseQuery.includes("analyze") || lowercaseQuery.includes("view task") || lowercaseQuery.includes("list")) {
+        if (totalTasks === 0) {
+          reply = "Your To-Do list is currently empty. Add some tasks over on the left side to give me something to inspect! 📝";
+        } else {
+          reply = `📋 Analysis: You have ${totalTasks} total tasks logged. ${completedTasks} are completed, leaving ${activeTasks} still outstanding. Keep working through them!`;
+        }
+      } else if (lowercaseQuery.includes("motivation") || lowercaseQuery.includes("inspire")) {
+        const lines = [
+          "Progress over perfection. Break down your hardest active task into micro-steps! 🚀",
+          "The secret of getting ahead is getting started. Which task are you crossing off next? 💪",
+          "Great things are done by a series of small items brought together. Keep checking them off!"
+        ];
+        reply = lines[Math.floor(Math.random() * lines.length)];
+      } else if (lowercaseQuery.includes("hello") || lowercaseQuery.includes("hi")) {
+        reply = "Hello! I can analyze your tasks right out of local DOM context or give you structured motivational boosts.";
       }
+
+      appendMessage(reply, 'bot');
     }
-    
+
+    chatInput.addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        sendChatMessage();
+      }
+    });
   </script>
 </body>
 </html>
-
