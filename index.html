@@ -633,10 +633,16 @@
       const taskContext = getTasksContext();
       const userToken = localStorage.getItem("hfApiToken");
       
-      const headers = { "Content-Type": "application/json" };
-      if (userToken) {
-        headers["Authorization"] = `Bearer ${userToken}`;
+      if (!userToken) {
+        botDiv.textContent = "⚠️ Token Missing! Click the gear icon ⚙️ at the top right, paste your Hugging Face API token, and hit 'Save Token'!";
+        chatContent.scrollTop = chatContent.scrollHeight;
+        return;
       }
+      
+      const headers = { 
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${userToken}`
+      };
       
       try {
         const response = await fetch(
@@ -653,28 +659,40 @@
 
         const data = await response.json();
         
-        if (data.error && data.error.includes("Authorization")) {
-          botDiv.textContent = "⚠️ This endpoint or volume level requests your own Hugging Face token. Click the gear icon ⚙️ at the top left to paste your personal token!";
+        // Safe check for API-returned errors before trying to split text strings
+        if (data.error) {
+          if (data.estimated_time) {
+            botDiv.textContent = `⏳ Waking up the AI server... Ready in about ${Math.round(data.estimated_time)} seconds. Send another message in a moment!`;
+          } else {
+            botDiv.textContent = `❌ Hugging Face Error: ${data.error}`;
+          }
+          chatContent.scrollTop = chatContent.scrollHeight;
           return;
         }
 
         let aiReply = "";
         if (Array.isArray(data) && data[0]?.generated_text) {
           const fullText = data[0].generated_text;
-          aiReply = fullText.split("<|assistant|>\n")[1] || fullText;
+          // Robust split alternative: cuts out everything before the assistant block smoothly
+          if (fullText.includes("<|assistant|>\n")) {
+            aiReply = fullText.split("<|assistant|>\n")[1];
+          } else {
+            aiReply = fullText;
+          }
         } else {
-          aiReply = "I'm experiencing an interface delay. Consider adding your personal access token in Settings if this error repeats!";
+          aiReply = "The AI returned a response format I didn't recognize. Try typing your message again.";
         }
 
         botDiv.textContent = aiReply.trim();
 
       } catch (error) {
         console.error(error);
-        botDiv.textContent = "Oops! Communication error. Check your token setup or network state.";
+        botDiv.textContent = "Oops! Communication error. Check your token setup or connection status.";
       }
 
       chatContent.scrollTop = chatContent.scrollHeight;
     }
   </script>
+  
 </body>
 </html>
