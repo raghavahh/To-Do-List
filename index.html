@@ -6,372 +6,122 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>To-Do List</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Arial', sans-serif;
       background-image: linear-gradient(45deg, black, rgb(232, 125, 232), rgba(0, 0, 0, 0.771));
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      color: #333;
-      padding: 20px;
+      display: flex; justify-content: center; align-items: center;
+      min-height: 100vh; color: #333; padding: 20px;
     }
-
     .main {
-      background-color: #ffffffdb;
-      border-radius: 10px;
+      background-color: #ffffffdb; border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      width: 90%;
-      max-width: 600px;
-      padding: 20px;
-      position: relative;
+      width: 90%; max-width: 600px; padding: 20px; position: relative;
     }
-
-    .header {
-      text-align: center;
-      margin-bottom: 20px;
-      position: relative;
-    }
-
+    .header { text-align: center; margin-bottom: 20px; position: relative; }
     .settings-icon {
-      position: absolute;
-      top: 0;
-      right: 0;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: #6c63ff;
-      transition: transform 0.3s ease;
+      position: absolute; top: 0; right: 0; font-size: 1.5rem;
+      cursor: pointer; color: #6c63ff; transition: transform 0.3s ease;
     }
-
-    .settings-icon:hover {
-      transform: rotate(90deg);
-    }
-
+    .settings-icon:hover { transform: rotate(90deg); }
     .lab {
-      font-size: 2rem;
-      color: #333333;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
+      font-size: 2rem; color: #333333; font-weight: bold;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
     }
-
-    .lab img {
-      width: 60px;
-      height: auto;
-    }
-
-    .task-input {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
+    .lab img { width: 60px; height: auto; }
+    .task-input { display: flex; gap: 10px; margin-bottom: 20px; }
     .input {
-      flex: 1;
-      padding: 10px;
-      border: 2px solid #ddd;
-      border-radius: 25px;
-      font-size: 1rem;
-      color: #333;
-      outline: none;
+      flex: 1; padding: 10px; border: 2px solid #ddd; border-radius: 25px;
+      font-size: 1rem; color: #333; outline: none;
     }
-
-    .input:focus {
-      border-color: #6c63ff;
-    }
-
+    .input:focus { border-color: #6c63ff; }
     .btn {
-      background-color: #f07532;
-      color: white;
-      font-size: 1rem;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+      background-color: #f07532; color: white; font-size: 1rem;
+      padding: 10px 20px; border: none; border-radius: 25px;
+      cursor: pointer; transition: background-color 0.3s ease;
     }
-
-    .btn:hover {
-      background-color: #fd5900;
-    }
-
-    ul {
-      list-style: none;
-    }
-
+    .btn:hover { background-color: #fd5900; }
+    ul { list-style: none; }
     ul li {
-      font-size: 17px;
-      padding: 12px 8px 12px 50px;
-      user-select: none;
-      cursor: pointer;
-      position: relative;
-      transition: background-color 0.2s ease;
+      font-size: 17px; padding: 12px 8px 12px 50px; user-select: none;
+      cursor: pointer; position: relative; transition: background-color 0.2s ease;
     }
-
-    ul li:hover {
-      background-color: #f5f5f5;
-      border-radius: 5px;
-    }
-
+    ul li:hover { background-color: #f5f5f5; border-radius: 5px; }
     ul li::before {
-      content: '';
-      position: absolute;
-      height: 20px;
-      width: 20px;
+      content: ''; position: absolute; height: 20px; width: 20px;
       background-image: url('https://cdn-icons-png.flaticon.com/512/1828/1828774.png');
-      background-size: cover;
-      background-position: center;
-      top: 12px;
-      left: 20px;
+      background-size: cover; background-position: center; top: 12px; left: 20px;
     }
-
-    ul li.checked {
-      color: red;
-      text-decoration: line-through;
-    }
-
-    ul li.checked::before {
-      background-image: url('https://cdn-icons-png.flaticon.com/512/845/845646.png');
-    }
-
+    ul li.checked { color: red; text-decoration: line-through; }
+    ul li.checked::before { background-image: url('https://cdn-icons-png.flaticon.com/512/845/845646.png'); }
     ul li span {
-      position: absolute;
-      right: 10px;
-      top: 5px;
-      width: 40px;
-      height: 40px;
-      font-size: 22px;
-      color: #555;
-      line-height: 40px;
-      text-align: center;
-      border-radius: 50%;
+      position: absolute; right: 10px; top: 5px; width: 40px; height: 40px;
+      font-size: 22px; color: #555; line-height: 40px; text-align: center; border-radius: 50%;
     }
-
-    ul li span:hover {
-      background: rgb(224, 224, 224);
-    }
-
-    /* Modal Styles */
+    ul li span:hover { background: rgb(224, 224, 224); }
     .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
+      display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+      width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);
     }
-
     .modal-content {
-      background-color: white;
-      margin: 10% auto;
-      padding: 30px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 500px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      background-color: white; margin: 10% auto; padding: 30px; border-radius: 10px;
+      width: 90%; max-width: 500px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
-
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-      line-height: 20px;
-    }
-
-    .close:hover {
-      color: #000;
-    }
-
-    .modal h2 {
-      margin-bottom: 15px;
-      color: #333;
-    }
-
+    .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; line-height: 20px; }
+    .close:hover { color: #000; }
+    .modal h2 { margin-bottom: 15px; color: #333; }
     .file-upload-area {
-      border: 2px dashed #6c63ff;
-      border-radius: 10px;
-      padding: 30px;
-      text-align: center;
-      margin: 20px 0;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+      border: 2px dashed #6c63ff; border-radius: 10px; padding: 30px;
+      text-align: center; margin: 20px 0; cursor: pointer; transition: background-color 0.3s ease;
     }
-
-    .file-upload-area:hover {
-      background-color: #f0f0ff;
-    }
-
-    .file-upload-area input[type="file"] {
-      display: none;
-    }
-
+    .file-upload-area:hover { background-color: #f0f0ff; }
+    .file-upload-area input[type="file"] { display: none; }
     .upload-btn {
-      background-color: #6c63ff;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 1rem;
-      margin-top: 10px;
+      background-color: #6c63ff; color: white; padding: 10px 20px; border: none;
+      border-radius: 25px; cursor: pointer; font-size: 1rem; margin-top: 10px;
     }
-
-    .upload-btn:hover {
-      background-color: #574bde;
-    }
-
-    .format-info {
-      background-color: #f9f9f9;
-      padding: 15px;
-      border-radius: 5px;
-      margin-top: 20px;
-      font-size: 0.9rem;
-    }
-
-    .format-info h3 {
-      margin-bottom: 10px;
-      color: #6c63ff;
-    }
-
-    .format-info pre {
-      background-color: #fff;
-      padding: 10px;
-      border-radius: 5px;
-      overflow-x: auto;
-      font-size: 0.85rem;
-    }
-
+    .upload-btn:hover { background-color: #574bde; }
+    .format-info { background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-top: 20px; font-size: 0.9rem; }
+    .format-info h3 { margin-bottom: 10px; color: #6c63ff; }
+    .format-info pre { background-color: #fff; padding: 10px; border-radius: 5px; overflow-x: auto; font-size: 0.85rem; }
     @media (max-width: 768px) {
-      .lab {
-        font-size: 1.5rem;
-      }
-
-      .task-input {
-        flex-direction: column;
-      }
-
-      .btn {
-        width: 100%;
-      }
-
-      ul li {
-        font-size: 15px;
-      }
+      .lab { font-size: 1.5rem; }
+      .task-input { flex-direction: column; }
+      .btn { width: 100%; }
+      ul li { font-size: 15px; }
     }
-
-    /* --- FLOATING CHATBOT WIDGET STYLES --- */
     .chat-bubble {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      width: 60px;
-      height: 60px;
-      background-color: #6c63ff;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 28px;
-      color: white;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      z-index: 999;
+      position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px;
+      background-color: #6c63ff; border-radius: 50%; display: flex;
+      justify-content: center; align-items: center; font-size: 28px; color: white;
+      cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 999;
       transition: transform 0.2s ease;
     }
-    .chat-bubble:hover {
-      transform: scale(1.1);
-    }
+    .chat-bubble:hover { transform: scale(1.1); }
     .chat-window {
-      display: none;
-      position: fixed;
-      bottom: 95px;
-      right: 25px;
-      width: 350px;
-      height: 450px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.25);
-      z-index: 999;
-      flex-direction: column;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
+      display: none; position: fixed; bottom: 95px; right: 25px; width: 350px; height: 450px;
+      background: white; border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.25);
+      z-index: 999; flex-direction: column; overflow: hidden; font-family: Arial, sans-serif;
     }
-    .chat-window.open {
-      display: flex;
-    }
+    .chat-window.open { display: flex; }
     .chat-header {
-      background: #6c63ff;
-      color: white;
-      padding: 15px;
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      background: #6c63ff; color: white; padding: 15px; font-weight: bold;
+      display: flex; justify-content: space-between; align-items: center;
     }
     .chat-content {
-      flex: 1;
-      padding: 15px;
-      overflow-y: auto;
-      background: #f7f7f9;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      flex: 1; padding: 15px; overflow-y: auto; background: #f7f7f9;
+      display: flex; flex-direction: column; gap: 10px;
     }
-    .chat-msg {
-      max-width: 80%;
-      padding: 8px 12px;
-      border-radius: 12px;
-      font-size: 14px;
-      line-height: 1.4;
-    }
-    .chat-msg.bot {
-      background: #e9e9ff;
-      color: #333;
-      align-self: flex-start;
-    }
-    .chat-msg.user {
-      background: #6c63ff;
-      color: white;
-      align-self: flex-end;
-    }
-    .chat-actions {
-      display: flex;
-      gap: 5px;
-      padding: 5px 10px;
-      background: #f7f7f9;
-    }
-    .chat-chip {
-      background: #fff;
-      border: 1px solid #ddd;
-      padding: 4px 8px;
-      border-radius: 12px;
-      font-size: 11px;
-      cursor: pointer;
-    }
-    .chat-footer {
-      display: flex;
-      padding: 10px;
-      border-top: 1px solid #eee;
-      background: white;
-    }
-    .chat-footer input {
-      flex: 1;
-      border: 1px solid #ddd;
-      padding: 8px 12px;
-      border-radius: 20px;
-      outline: none;
+    .chat-msg { max-width: 80%; padding: 8px 12px; border-radius: 12px; font-size: 14px; line-height: 1.4; white-space: pre-wrap; }
+    .chat-msg.bot { background: #e9e9ff; color: #333; align-self: flex-start; }
+    .chat-msg.user { background: #6c63ff; color: white; align-self: flex-end; }
+    .chat-actions { display: flex; gap: 5px; padding: 5px 10px; background: #f7f7f9; }
+    .chat-chip { background: #fff; border: 1px solid #ddd; padding: 4px 8px; border-radius: 12px; font-size: 11px; cursor: pointer; }
+    .chat-footer { display: flex; padding: 10px; border-top: 1px solid #eee; background: white; }
+    .chat-footer input { flex: 1; border: 1px solid #ddd; padding: 8px 12px; border-radius: 20px; outline: none; }
+    .chat-footer button {
+      margin-left: 8px; background: #6c63ff; color: white; border: none;
+      border-radius: 20px; padding: 8px 14px; cursor: pointer;
     }
   </style>
 </head>
@@ -381,48 +131,51 @@
       <div class="settings-icon" onclick="openSettings()">⚙️</div>
       <div class="lab">
         To-Do List
-        <img
-          src="https://img.freepik.com/free-vector/businessman-holding-pencil-big-complete-checklist-with-tick-marks_1150-35019.jpg?semt=ais_hybrid&w=740"
-          alt="To-Do List Image"
-        />
+        <img src="https://img.freepik.com/free-vector/businessman-holding-pencil-big-complete-checklist-with-tick-marks_1150-35019.jpg?semt=ais_hybrid&w=740" alt="To-Do List Image" />
       </div>
     </div>
-
     <div class="task-input">
       <input type="text" class="input" id="input-box" placeholder="Add your task" />
       <button class="btn" onclick="addtask(null)"><b>ADD</b></button>
     </div>
-
     <ul id="listcnt"></ul>
   </div>
 
   <div id="settingsModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeSettings()">&times;</span>
-      
       <div style="margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid #eee;">
         <h2>Chatbot Token Configuration</h2>
         <p style="font-size: 0.85rem; color: #666; margin-bottom: 12px;">
-          Paste your custom Hugging Face User Access Token below. It saves securely to your local browser environment.
+          Paste your Hugging Face User Access Token below. It's saved only in this browser's local storage
+          (never sent anywhere except directly to Hugging Face's API).
         </p>
         <input type="password" id="apiTokenInput" class="input" style="width: 100%; margin-bottom: 12px; border-radius: 8px;" placeholder="hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx" />
         <button class="btn" style="background-color: #6c63ff; padding: 6px 15px; font-size: 0.9rem;" onclick="saveApiToken()">Save Token</button>
+        <p style="font-size: 0.75rem; color: #999; margin-top: 8px;">
+          Get a free token at huggingface.co/settings/tokens (read access is enough).
+        </p>
       </div>
-
       <h2>Import Tasks from File</h2>
       <div class="file-upload-area" onclick="document.getElementById('fileInput').click()">
         <p>📁 Click to upload a file</p>
         <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">Supports .txt and .json files</p>
         <input type="file" id="fileInput" accept=".txt,.json" onchange="handleFileUpload(event)" />
       </div>
-
       <div class="format-info">
         <h3>Supported Formats:</h3>
         <p><strong>Text File (.txt):</strong></p>
-        <pre>Task 1\nTask 2\nTask 3</pre>
-        
+        <pre>Task 1
+Task 2
+Task 3</pre>
         <p style="margin-top: 15px;"><strong>JSON File (.json):</strong></p>
-        <pre>{\n  "tasks": [\n    "Task 1",\n    "Task 2",\n    "Task 3"\n  ]\n}</pre>
+        <pre>{
+  "tasks": [
+    "Task 1",
+    "Task 2",
+    "Task 3"
+  ]
+}</pre>
       </div>
     </div>
   </div>
@@ -437,11 +190,12 @@
       <div class="chat-msg bot">Hi! I can look at your active tasks or throw some quick motivation your way. Ask me anything!</div>
     </div>
     <div class="chat-actions">
-      <div class="chat-chip" onclick="handleShortcutAction('Analyze tasks')">📊 Analyze List</div>
-      <div class="chat-chip" onclick="handleShortcutAction('Motivation')">🔥 Motivation</div>
+      <div class="chat-chip" onclick="handleShortcutAction('Analyze my task list')">📊 Analyze List</div>
+      <div class="chat-chip" onclick="handleShortcutAction('Give me motivation')">🔥 Motivation</div>
     </div>
     <div class="chat-footer">
       <input type="text" id="chatInput" placeholder="Type a message..." onkeypress="handleChatKey(event)" />
+      <button onclick="sendFromButton()">Send</button>
     </div>
   </div>
 
@@ -449,17 +203,13 @@
     const inputBox = document.getElementById("input-box");
     const listcnt = document.getElementById("listcnt");
 
-    // Unified storage handler
     function saveData() {
       localStorage.setItem("todoData", listcnt.innerHTML);
     }
 
     function showTask() {
       const savedData = localStorage.getItem("todoData");
-      if (savedData) {
-        listcnt.innerHTML = savedData;
-      }
-      
+      if (savedData) listcnt.innerHTML = savedData;
       const savedToken = localStorage.getItem("hfApiToken");
       if (savedToken && document.getElementById("apiTokenInput")) {
         document.getElementById("apiTokenInput").value = savedToken;
@@ -474,24 +224,21 @@
 
     function addtask(taskText = null) {
       let text = (typeof taskText === 'string') ? taskText : inputBox.value.trim();
-      
       if (text === '') {
         if (!taskText) alert("You must write something");
         return;
       }
-      
       let li = document.createElement("li");
       li.textContent = text;
       listcnt.appendChild(li);
       let span = document.createElement("span");
       span.innerHTML = "\u00d7";
       li.appendChild(span);
-      
       if (!taskText || typeof taskText !== 'string') inputBox.value = "";
       saveData();
     }
 
-    listcnt.addEventListener("click", function(e) {
+    listcnt.addEventListener("click", function (e) {
       if (e.target.tagName === "LI") {
         e.target.classList.toggle("checked");
         saveData();
@@ -503,93 +250,67 @@
 
     showTask();
 
-    inputBox.addEventListener("keypress", function(e) {
-      if (e.key === "Enter") {
-        addtask(null);
-      }
+    inputBox.addEventListener("keypress", function (e) {
+      if (e.key === "Enter") addtask(null);
     });
 
-    // Settings Modal Functions
     function openSettings() {
       document.getElementById("settingsModal").style.display = "block";
       const savedToken = localStorage.getItem("hfApiToken");
-      if (savedToken) {
-        document.getElementById("apiTokenInput").value = savedToken;
-      }
+      if (savedToken) document.getElementById("apiTokenInput").value = savedToken;
     }
-
     function closeSettings() {
       document.getElementById("settingsModal").style.display = "none";
     }
-
-    window.onclick = function(event) {
+    window.onclick = function (event) {
       const modal = document.getElementById("settingsModal");
-      if (event.target === modal) {
-        closeSettings();
-      }
-    }
+      if (event.target === modal) closeSettings();
+    };
 
-    // File Upload Handler
     function handleFileUpload(event) {
       const file = event.target.files[0];
       if (!file) return;
-
       const reader = new FileReader();
-      
-      reader.onload = function(e) {
+      reader.onload = function (e) {
         const content = e.target.result;
         const fileExtension = file.name.split('.').pop().toLowerCase();
-        
         try {
           let tasks = [];
-          
           if (fileExtension === 'json') {
             const jsonData = JSON.parse(content);
-            if (Array.isArray(jsonData)) {
-              tasks = jsonData;
-            } else if (jsonData.tasks && Array.isArray(jsonData.tasks)) {
-              tasks = jsonData.tasks;
-            } else if (jsonData.items && Array.isArray(jsonData.items)) {
-              tasks = jsonData.items;
-            } else {
-              alert("JSON format not recognized.");
-              return;
-            }
+            if (Array.isArray(jsonData)) tasks = jsonData;
+            else if (jsonData.tasks && Array.isArray(jsonData.tasks)) tasks = jsonData.tasks;
+            else if (jsonData.items && Array.isArray(jsonData.items)) tasks = jsonData.items;
+            else { alert("JSON format not recognized."); return; }
           } else if (fileExtension === 'txt') {
-            tasks = content.split('\n')
-              .map(line => line.trim())
-              .filter(line => line.length > 0);
+            tasks = content.split('\n').map(line => line.trim()).filter(line => line.length > 0);
           }
-          
           listcnt.innerHTML = '';
-          
-          tasks.forEach(task => {
-            if (task) {
-              addtask(task.toString().trim());
-            }
-          });
-          
+          tasks.forEach(task => { if (task) addtask(task.toString().trim()); });
           alert(`Successfully imported ${tasks.length} task(s)!`);
           closeSettings();
-          
         } catch (error) {
           alert("Error reading file: " + error.message);
         }
       };
-      
       reader.readAsText(file);
-      event.target.value = ''; 
+      event.target.value = '';
     }
-    
-    // --- FLOATING CHATBOT JAVASCRIPT LOGIC WITH REAL AI ---
+
+    // ---------------- CHATBOT (FIXED) ----------------
     const chatWindow = document.getElementById("chatWindow");
     const chatContent = document.getElementById("chatContent");
     const chatInput = document.getElementById("chatInput");
 
     function toggleChat() {
       chatWindow.classList.toggle("open");
-      if(chatWindow.classList.contains("open")) {
-        chatContent.scrollTop = chatContent.scrollHeight;
+      if (chatWindow.classList.contains("open")) chatContent.scrollTop = chatContent.scrollHeight;
+    }
+
+    function sendFromButton() {
+      if (chatInput.value.trim() !== "") {
+        aiAction(chatInput.value.trim());
+        chatInput.value = "";
       }
     }
 
@@ -607,7 +328,6 @@
     function getTasksContext() {
       const items = Array.from(listcnt.querySelectorAll("li"));
       if (items.length === 0) return "The user currently has no tasks in their To-Do list.";
-      
       let summary = "Current To-Do List:\n";
       items.forEach((item, index) => {
         const isChecked = item.classList.contains("checked") ? "[Completed]" : "[Pending]";
@@ -632,67 +352,81 @@
 
       const taskContext = getTasksContext();
       const userToken = localStorage.getItem("hfApiToken");
-      
+
       if (!userToken) {
-        botDiv.textContent = "⚠️ Token Missing! Click the gear icon ⚙️ at the top right, paste your Hugging Face API token, and hit 'Save Token'!";
-        chatContent.scrollTop = chatContent.scrollHeight;
+        botDiv.textContent = "⚠️ Token missing! Click the gear icon ⚙️ at the top right, paste your Hugging Face API token, and hit 'Save Token'.";
         return;
       }
-      
-      const headers = { 
+
+      // NOTE: meta-llama/Llama-3.2-1B-Instruct is a GATED model — even with a valid
+      // token, requests fail with a 403 unless you've separately accepted its license
+      // on huggingface.co AND the model happens to be loaded on HF's free Inference API
+      // (most gated/large chat models are not available there anymore).
+      // Using an open, non-gated, lightweight instruct model instead — this one is
+      // actually reachable through the free serverless Inference API.
+      const MODEL = "Qwen/Qwen2.5-0.5B-Instruct";
+
+      const headers = {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${userToken}`
       };
-      
+
+      // Chat-formatted payload (works with HF's "chat completion" style route for
+      // instruct models, and avoids manually building a fragile prompt template).
+      const payload = {
+        model: MODEL,
+        messages: [
+          {
+            role: "system",
+            content: `You are a helpful, motivational To-Do list assistant. Keep answers ultra-short, friendly, and actionable (max 2-3 sentences).\n\n${taskContext}`
+          },
+          { role: "user", content: text }
+        ],
+        max_tokens: 150
+      };
+
       try {
         const response = await fetch(
-          "https://api-inference.huggingface.co/models/meta-llama/Llama-3.2-1B-Instruct",
+          "https://api-inference.huggingface.co/v1/chat/completions",
           {
             method: "POST",
             headers: headers,
-            body: JSON.stringify({
-              inputs: `<|system|>\nYou are a helpful, motivational To-Do list assistant. Keep answers ultra-short, friendly, and actionable (maximum 2-3 sentences).\n\nContext:\n${taskContext}\n<|user|>\n${text}\n<|assistant|>\n`,
-              parameters: { max_new_tokens: 150, stop: ["<|end|>", "<|user|>"] }
-            }),
+            body: JSON.stringify(payload)
           }
         );
 
-        const data = await response.json();
-        
-        // Safe check for API-returned errors before trying to split text strings
-        if (data.error) {
-          if (data.estimated_time) {
-            botDiv.textContent = `⏳ Waking up the AI server... Ready in about ${Math.round(data.estimated_time)} seconds. Send another message in a moment!`;
-          } else {
-            botDiv.textContent = `❌ Hugging Face Error: ${data.error}`;
-          }
-          chatContent.scrollTop = chatContent.scrollHeight;
+        if (response.status === 401) {
+          botDiv.textContent = "❌ Invalid token. Re-check the token in Settings ⚙️.";
+          return;
+        }
+        if (response.status === 403) {
+          botDiv.textContent = "❌ Access denied (403). The model may be gated or your token lacks the right scope.";
+          return;
+        }
+        if (response.status === 503) {
+          botDiv.textContent = "⏳ Model is warming up on Hugging Face's servers. Try sending your message again in ~20 seconds.";
+          return;
+        }
+        if (!response.ok) {
+          const errText = await response.text();
+          botDiv.textContent = `❌ Hugging Face error (${response.status}): ${errText.slice(0, 150)}`;
           return;
         }
 
-        let aiReply = "";
-        if (Array.isArray(data) && data[0]?.generated_text) {
-          const fullText = data[0].generated_text;
-          // Robust split alternative: cuts out everything before the assistant block smoothly
-          if (fullText.includes("<|assistant|>\n")) {
-            aiReply = fullText.split("<|assistant|>\n")[1];
-          } else {
-            aiReply = fullText;
-          }
-        } else {
-          aiReply = "The AI returned a response format I didn't recognize. Try typing your message again.";
-        }
+        const data = await response.json();
+        const aiReply = data?.choices?.[0]?.message?.content;
 
-        botDiv.textContent = aiReply.trim();
+        botDiv.textContent = aiReply
+          ? aiReply.trim()
+          : "Got an empty response from the model — try rephrasing your message.";
 
       } catch (error) {
         console.error(error);
-        botDiv.textContent = "Oops! Communication error. Check your token setup or connection status.";
+        botDiv.textContent = "Oops! Network/communication error. Check your connection or token setup.";
       }
 
       chatContent.scrollTop = chatContent.scrollHeight;
     }
   </script>
-  
 </body>
 </html>
